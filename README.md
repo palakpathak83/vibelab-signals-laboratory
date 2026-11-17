@@ -1,5 +1,4 @@
-⚡ VibeLab – Signals & Systems Laboratory
-
+## ⚡ VibeLab – Signals & Systems Laboratory
 <p align="center">   <strong>An Interactive Digital Laboratory for Exploring Signals and Systems</strong> </p>
 
 <p align="center">   <a href="https://vibelab-signals-laboratory.vercel.app/">     <img src="https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel" alt="Live Demo">   </a>   <img src="https://img.shields.io/badge/Language-TypeScript-blue?style=for-the-badge&logo=typescript" alt="TypeScript">   <img src="https://img.shields.io/badge/Framework-React-61DAFB?style=for-the-badge&logo=react" alt="React">   <img src="https://img.shields.io/badge/Build-Vite-646CFF?style=for-the-badge&logo=vite" alt="Vite"> </p>
