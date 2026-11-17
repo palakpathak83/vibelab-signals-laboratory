@@ -1,0 +1,6 @@
+{
+  "name": "VibeLab — Signals & Systems Laboratory",
+  "description": "Interactive engineering laboratory for capturing or simulating motion signals, analyzing time and frequency spectra, and demonstrating sampling theorem, Nyquist limit, and aliasing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,939 @@
+# MASTER BUILD PROMPT — VIBELAB
+## A Premium, Interactive Signals & Systems Engineering Laboratory
+
+Act as a principal product designer, senior UI/UX engineer, frontend architect, digital signal processing engineer, scientific data-visualization specialist, and QA engineer.
+
+Your mission is to design and build a complete, professional, interactive web application called **VibeLab — Signal & Systems Laboratory**.
+
+Do not create a generic student portfolio, static landing page, template dashboard, or visual mockup. Build a working engineering education application with a premium interface, correct signal-processing mathematics, real-time interaction, useful scientific visualizations, meaningful educational content, and fully functional controls.
+
+Prioritize scientific correctness, a refined user experience, responsive design, accessibility, and reliable behavior over unnecessary animations or decorative elements.
+
+---
+
+# 1. PROJECT IDENTITY
+
+Product name: VibeLab
+
+Product category: Interactive engineering laboratory / scientific signal analysis web app.
+
+Academic context: B.Tech Computer Science, Data Science & AI, Signals and Systems.
+
+Primary syllabus topic:
+- Unit VI: Sampling theorem, sampling frequency, sampled spectra, aliasing, and reconstruction of sampled signals.
+
+Supporting topics:
+- Unit IV: Fourier series, Fourier transform, DTFT, DFT, frequency-domain analysis, and Parseval's theorem.
+- Unit II: Continuous-time and discrete-time signals, energy and power, periodicity, and signal properties.
+- Unit III: LTI systems, impulse response, and system behavior where relevant.
+
+Core project statement:
+
+"VibeLab is an interactive browser-based laboratory for capturing or simulating motion signals, analyzing their time-domain and frequency-domain characteristics, and understanding how sampling frequency affects signal representation and aliasing."
+
+Primary audience:
+- Engineering students and faculty.
+- Electronics and instrumentation learners.
+- Mechanical engineering learners studying vibration analysis.
+- Researchers exploring educational signal-processing workflows.
+
+Important product limitation:
+This is an educational prototype, not a certified earthquake detector, structural-health monitoring instrument, or industrial fault-diagnosis system. Clearly communicate that phone sensors are not calibrated scientific instruments.
+
+---
+
+# 2. PRODUCT OBJECTIVES
+
+The application must allow users to:
+
+1. Generate controlled synthetic vibration signals.
+2. Capture device motion data when supported by the browser.
+3. View an updating acceleration waveform.
+4. Analyze signals using a correctly implemented DFT/FFT.
+5. Adjust signal frequency, amplitude, noise, and analysis sampling rate.
+6. Observe aliasing when the sampling rate is inadequate.
+7. Understand the Nyquist frequency and sampling theorem.
+8. Compare original, acquired, and downsampled signals.
+9. Calculate meaningful signal metrics.
+10. Save experimental snapshots and compare trials.
+11. Export captured data and experiment summaries to CSV.
+12. Access an educational guide explaining the underlying mathematics.
+13. Reset experiments and recover gracefully from errors.
+14. Use the complete application on mobile, tablet, and desktop.
+
+Every visible interactive element must work. Never add decorative buttons, fake data-saving behavior, fake authentication, nonfunctional menus, or controls that do nothing.
+
+If a capability is unavailable in the current environment, clearly disable it and explain why.
+
+---
+
+# 3. DESIGN PHILOSOPHY — PREMIUM GEN Z PROFESSIONAL
+
+Create a modern scientific SaaS interface that combines:
+- Premium engineering software.
+- Minimalist editorial design.
+- Sophisticated analytics dashboards.
+- Modern developer-tool aesthetics.
+- Precise scientific instrumentation.
+
+The result should feel credible enough for an engineering lab and polished enough for a modern technology startup.
+
+Avoid:
+- Generic AI-generated website aesthetics.
+- Excessive gradients and glowing effects.
+- Neon colors everywhere.
+- Excessive glassmorphism.
+- Huge empty hero sections.
+- Unnecessary illustrations.
+- Excessive rounded cards.
+- Emoji-based navigation.
+- Dense, cluttered dashboards.
+- Fake charts and arbitrary metrics.
+- Excessive animations.
+- Unnecessary marketing copy inside the actual laboratory.
+
+Use a restrained visual language, clear hierarchy, compact but comfortable spacing, crisp typography, purposeful whitespace, and precise alignment.
+
+The UI must be rich in useful functionality, not visual clutter.
+
+---
+
+# 4. STRICT 60–30–10 COLOR SYSTEM
+
+Implement the 60–30–10 rule consistently.
+
+## 60% — Dominant background
+Use deep neutral navy for the dark theme.
+
+- Main background: #101820
+- Deep canvas background: #0B1118
+- Primary text: #F2F5F8
+- Secondary text: #A5B2C0
+
+## 30% — Secondary surfaces
+Use cool blue-gray surfaces for cards, sidebars, toolbars, and panels.
+
+- Main surface: #1B2B3B
+- Elevated surface: #223447
+- Borders: #304357
+- Muted text: #A8B7C7
+
+## 10% — Primary accent
+Use teal sparingly for meaningful interactions.
+
+- Primary accent: #13B8A6
+- Hover accent: #0FA08F
+- Accent text on light surfaces: #07594F
+- Accent text on teal buttons: #062622
+
+Use amber for sampled points and cautionary scientific insights, red for errors, and green for confirmed success. These semantic colors must not replace the primary color system.
+
+Do not force every graph, icon, card, and button to use teal.
+
+Create a polished light theme as well, with accessible contrast and matching visual hierarchy. Add a working light/dark theme toggle and persist the preference locally.
+
+Use CSS variables/design tokens so that the complete theme can be updated consistently.
+
+---
+
+# 5. TYPOGRAPHY AND DESIGN SYSTEM
+
+Use a clean modern font such as Inter or an equivalent system font.
+
+Typography:
+- Strong, concise page headings.
+- Small uppercase section labels.
+- Highly legible metric values.
+- Tabular numerals for scientific measurements.
+- Monospaced typography for equations and technical values.
+- Clear distinction between titles, descriptions, labels, and helper text.
+
+Use a consistent spacing scale based on 4px or 8px increments.
+
+Recommended component styling:
+- Medium corner radius rather than excessive pill shapes.
+- Subtle borders instead of heavy shadows.
+- Fine chart grid lines.
+- Compact badges for actual states.
+- Consistent button heights.
+- Visible keyboard focus states.
+- Predictable hover, pressed, disabled, loading, and success states.
+
+Use Lucide icons or an equivalent consistent icon library.
+
+Use subtle transitions of approximately 120–200 ms. Respect reduced-motion preferences.
+
+---
+
+# 6. INFORMATION ARCHITECTURE
+
+Build a cohesive application with the following sections.
+
+## A. Application shell
+
+Create:
+- Brand mark and VibeLab wordmark.
+- Desktop sidebar or compact navigation rail.
+- Responsive mobile navigation.
+- Current experiment/source status.
+- Theme toggle.
+- Help/documentation access.
+- Main content area.
+- Small, informative footer.
+
+Navigation items:
+1. Overview / Lab
+2. Signal Simulator
+3. Live Sensor
+4. Experiments
+5. Learn
+6. About / Methodology
+
+Each navigation item must open its corresponding functional section. Preserve experiment state during navigation where appropriate.
+
+## B. Overview
+
+Show:
+- Short project description.
+- Primary action to launch the lab.
+- Secondary action to explore a guided experiment.
+- Current source and acquisition status.
+- Current sample count.
+- Current analysis sampling rate.
+- Nyquist frequency.
+- A small preview of the latest waveform.
+- Recent saved experiments, when available.
+
+Never display invented live measurements as if they came from a real sensor.
+
+If no experiment has been run, show a thoughtful empty state with an action to start the simulator.
+
+## C. Signal laboratory
+
+This is the main product screen and must receive the greatest design and development attention.
+
+Use a responsive layout with:
+- Main waveform panel.
+- Frequency spectrum panel.
+- Signal metrics.
+- Sampling and signal controls.
+- Aliasing interpretation panel.
+- Experiment actions.
+
+Prioritize the graphs and metrics over decorative content.
+
+## D. Guided learning
+
+Create a structured, interactive educational section with explanations, formulas, examples, and short experiments.
+
+## E. Experiment history
+
+Create a functional experiment table with search, sorting, selection, deletion, and export actions where supported.
+
+## F. Methodology and limitations
+
+Explain how measurements are obtained, how calculations are performed, what assumptions are made, and which results should not be interpreted as certified physical measurements.
+
+---
+
+# 7. SIGNAL SIMULATOR — REQUIRED FUNCTIONALITY
+
+Implement a real synthetic signal generator.
+
+Allow users to configure:
+
+- Fundamental frequency: 1–30 Hz.
+- Signal amplitude: 0.1–3.0 m/s² for synthetic demonstration.
+- Noise level: 0–0.5 m/s².
+- Analysis sampling rate: 2–100 Hz.
+- Signal duration or capture window.
+- Signal type: sine, square, triangle, and composite signal.
+- Optional second sinusoidal component.
+- DC offset.
+- Optional detrending.
+- Selected axis or signal component.
+
+Use explicit units and explain that the amplitude is a synthetic parameter, not a physical measurement unless the signal has been calibrated.
+
+The simulator must:
+- Generate correctly timestamped samples.
+- Use a controlled simulation clock.
+- Update the visualization while running.
+- Stop without leaving background timers running.
+- Allow restarting without duplicate timers.
+- Maintain a sensible maximum buffer length.
+- Support pause/resume if implemented.
+- Preserve or reset the experiment according to the user's explicit action.
+- Show an informative empty state before the first capture.
+
+All controls must immediately update the displayed values. If a control changes the signal or analysis configuration, the visible graphs and derived metrics must reflect the change.
+
+---
+
+# 8. LIVE DEVICE SENSOR
+
+Implement actual browser motion capture using DeviceMotionEvent when available.
+
+Requirements:
+- Feature-detect browser support.
+- Request motion permission only after a user action when required.
+- Explain why permission is needed.
+- Require a secure context such as HTTPS where necessary.
+- Handle denied permissions, unavailable sensors, missing axes, and unsupported browsers gracefully.
+- Display a visible acquisition state.
+- Show the observed event rate based on timestamps.
+- Stop event listeners when acquisition ends.
+- Prevent duplicate event listeners.
+- Allow data export.
+- Clearly distinguish synthetic data from live sensor data.
+
+Use available acceleration values consistently. If only acceleration including gravity is available, label that distinction accurately.
+
+Never claim that software downsampling changes the phone's hardware sampling frequency.
+
+Never label phone-derived data as a calibrated seismic measurement.
+
+Explain that phone mounting, orientation, filtering, noise, hardware limitations, and browser event scheduling affect the results.
+
+Provide a simulator fallback on unsupported devices.
+
+---
+
+# 9. SCIENTIFIC SIGNAL-PROCESSING ENGINE
+
+Implement the mathematical processing as reusable, testable modules rather than mixing every calculation into UI event handlers.
+
+## A. Time-domain data
+
+Maintain a collection of timestamped samples with consistent units.
+
+Display:
+- Time in seconds.
+- Signal amplitude in m/s² for appropriately labelled acceleration data.
+- Original or acquired samples.
+- Selected analysis samples.
+- Sampling interval.
+
+Use timestamps rather than assuming all device events occur at perfectly uniform intervals.
+
+For nonuniform live timestamps, explain that standard FFT interpretation assumes uniform sampling. Resample onto a uniform time grid using a documented interpolation method before computing a conventional FFT, or explicitly identify when the data is unsuitable for reliable FFT analysis.
+
+## B. Sampling
+
+Implement a clearly defined analysis sampling rate.
+
+When demonstrating ideal discrete-time sampling with a known synthetic signal, generate or sample the signal at the selected target rate.
+
+When working with acquired data, perform real timestamp-aware resampling or downsampling. Do not simply relabel an unchanged signal with a different sampling rate.
+
+Explain the distinction between:
+- Hardware acquisition rate.
+- Observed browser event rate.
+- Analysis sampling rate.
+- Effective sampling interval.
+
+If the input rate is insufficient to represent the requested analysis rate, show a warning rather than inventing additional information.
+
+## C. Nyquist theorem
+
+Calculate:
+
+f_N = f_s / 2
+
+For a band-limited signal, explain that ideal reconstruction requires a sampling frequency greater than twice the highest frequency present in the signal.
+
+Use appropriate qualifications about signal bandwidth, anti-alias filtering, and practical limitations.
+
+Do not imply that merely exceeding twice the dominant frequency is sufficient when higher-frequency components are also present.
+
+## D. Aliasing demonstration
+
+Implement a mathematically correct aliasing demonstration for known synthetic signals.
+
+For a single sinusoid sampled at f_s, calculate the folded frequency using:
+
+f_alias = |((f + f_s/2) mod f_s) - f_s/2|
+
+Display:
+- Original signal frequency.
+- Analysis sampling frequency.
+- Nyquist frequency.
+- Predicted alias frequency.
+- Whether the signal component lies above the Nyquist limit.
+- A clear explanation of the observed behavior.
+
+Use correct handling of frequency boundaries.
+
+Do not claim that a visual warning alone proves aliasing. The plotted discrete samples and their corresponding frequency analysis must support the interpretation.
+
+For composite signals, evaluate all known components rather than relying exclusively on a single dominant-frequency threshold.
+
+Explain that aliasing cannot generally be undone once the relevant information has been lost.
+
+## E. FFT / DFT
+
+Implement a correct DFT or FFT.
+
+Requirements:
+- Use a trusted FFT library or a properly tested implementation.
+- Apply a documented window function, such as Hann, when appropriate.
+- Remove the mean only when the user enables detrending.
+- Handle insufficient samples.
+- Handle zero-length or constant signals.
+- Use the correct frequency-bin calculation.
+- Use a consistent amplitude normalization.
+- Display a one-sided magnitude spectrum correctly.
+- Distinguish magnitude from power spectral density.
+- Clearly indicate the frequency resolution.
+
+For uniformly sampled data:
+
+Δf = f_s / N
+
+The spectrum must use the actual effective sample rate and sample count of the processed data.
+
+Avoid silently padding, truncating, or changing the sample rate in ways that produce misleading measurements. Document any zero-padding or resampling used.
+
+## F. Signal metrics
+
+Calculate and label:
+- RMS value.
+- Peak absolute amplitude.
+- Peak-to-peak amplitude.
+- Mean value.
+- Observed event rate.
+- Effective analysis sample rate.
+- Dominant frequency.
+- Nyquist frequency.
+- Number of analyzed samples.
+- Frequency resolution.
+
+For detrended data, make it clear whether the displayed metrics use the raw or detrended signal.
+
+Never label RMS as physical vibration severity or a calibrated measurement without appropriate calibration and context.
+
+## G. Energy and power learning tools
+
+Where applicable, add educational calculations for discrete-time energy and average power:
+
+E = Σ |x[n]|²
+
+P = lim as N → ∞ of (1/(2N+1)) Σ from n = -N to N of |x[n]|²
+
+For finite captured sequences, label the calculated finite-window energy and average power as estimates over the selected observation window. Explain the difference between energy and power signals.
+
+---
+
+# 10. VISUALIZATIONS
+
+Create high-quality scientific charts using a reliable charting library or carefully implemented canvas/SVG charts.
+
+## Waveform chart
+
+Include:
+- Time axis.
+- Amplitude axis.
+- Grid lines.
+- Tooltips or a crosshair where practical.
+- Clear series labels.
+- Zoom/reset controls if implemented.
+- A visible distinction between the continuous reference curve and discrete sampled points for synthetic demonstrations.
+- Correct time scale and sample positions.
+
+## Frequency spectrum chart
+
+Include:
+- Frequency axis in Hz.
+- Magnitude axis with appropriate units or normalized magnitude.
+- Visible frequency peaks.
+- Nyquist marker.
+- Dominant-frequency marker.
+- Tooltips showing bin frequency and magnitude.
+- A sensible display range that follows the current analysis sample rate.
+
+## Sampling comparison
+
+Add a comparison view showing:
+- Original synthetic reference signal.
+- Uniformly sampled points.
+- Reconstructed or interpolated signal, if implemented.
+- A low-sampling-rate example.
+
+Clearly label the difference between the ideal continuous reference, discrete samples, and any reconstruction.
+
+Never describe linear interpolation as ideal reconstruction.
+
+## Aliasing visualization
+
+Allow users to compare:
+- A signal sampled adequately.
+- The same signal sampled below the Nyquist requirement.
+- The predicted alias frequency.
+- The resulting discrete sample pattern.
+
+The visualization must change when users change the signal frequency or sample rate.
+
+Charts must resize correctly and remain legible on small screens.
+
+---
+
+# 11. RECONSTRUCTION LEARNING MODULE
+
+Add a dedicated section explaining three reconstruction approaches:
+
+1. Ideal sinc reconstruction.
+2. Zero-order hold (ZOH).
+3. First-order hold (FOH).
+
+Include a shared sampled signal and a working control that lets the user select the reconstruction method.
+
+Use the correct mathematical interpretation for each method.
+
+Explain that:
+- Ideal reconstruction uses a sinc-based interpolation model under band-limited sampling assumptions.
+- ZOH holds each sample value until the next sample.
+- FOH uses linear interpolation between samples.
+
+Label each method accurately and ensure the visualization changes when the user selects a different method.
+
+---
+
+# 12. EXPERIMENT PRESETS
+
+Provide working presets such as:
+
+1. Safe Sampling — 5 Hz tone, 40 Hz analysis sampling rate.
+2. Near Nyquist — 10 Hz tone, 25 Hz analysis sampling rate.
+3. Aliasing Demo — 15 Hz tone, 20 Hz analysis sampling rate.
+4. Composite Signal — multiple known frequency components.
+5. Noisy Signal — low-amplitude signal with configurable noise.
+6. Live Motion Trial — available only when device capture is supported.
+
+Each preset must update the actual simulator configuration, charts, derived calculations, and explanatory text.
+
+The preset descriptions must agree with the selected parameters.
+
+Do not label an experiment "safe" in a physical safety sense; use "Adequate Sampling" if that is clearer.
+
+---
+
+# 13. TRIAL MANAGEMENT AND DATABASE
+
+Build functional experiment management.
+
+Each saved trial should include, where applicable:
+- Unique trial ID.
+- Creation timestamp.
+- Source type.
+- Signal configuration.
+- Analysis sampling rate.
+- Observed event rate.
+- Number of samples.
+- RMS.
+- Peak amplitude.
+- Dominant frequency.
+- Nyquist frequency.
+- Predicted alias frequency or alias status.
+- User notes.
+- Data format/version metadata.
+
+Support:
+- Save trial.
+- View trial details.
+- Compare two or more trials.
+- Search and sort.
+- Add or edit notes.
+- Delete a trial with confirmation.
+- Export individual trial data.
+- Export a combined experiment summary.
+
+Storage strategy:
+1. Make the application functional without a backend.
+2. Use IndexedDB or another suitable browser-local database for structured trial data and sample arrays.
+3. Clearly tell users when their data is stored only in their browser.
+4. Persist saved trials across page reloads where feasible.
+5. Implement a working delete/reset flow.
+6. Never pretend that local data is stored in a cloud database.
+
+If a cloud database is genuinely available and configured, use a suitable free-tier service such as Supabase, with appropriate schema, validation, error handling, and security policies. Keep cloud storage optional rather than making the entire application dependent on unavailable API keys.
+
+Do not store secrets in frontend code. Do not upload motion data without clear user consent.
+
+---
+
+# 14. CSV EXPORT
+
+Implement a working CSV export with:
+- Correct headers.
+- Consistent units.
+- Stable numeric formatting.
+- Proper escaping of text fields.
+- Correct handling of commas, quotes, and newlines.
+- Timestamped filenames.
+- A clear distinction between raw data and analysis results.
+
+Offer separate export actions for:
+1. Raw captured samples.
+2. Processed analysis samples.
+3. Trial summary.
+4. Combined experiment history.
+
+For larger datasets, avoid freezing the UI unnecessarily.
+
+Show a useful message when there is no data to export.
+
+Release temporary object URLs when appropriate.
+
+Do not claim that an export succeeded until the download action has actually been triggered.
+
+---
+
+# 15. LEARNING CENTER AND EDUCATIONAL CONTENT
+
+Create an integrated Signals & Systems learning center with accurate, concise, engineering-level explanations.
+
+Include the following lessons:
+
+### Lesson 1: Signals and signal representation
+- Continuous-time and discrete-time signals.
+- Time-domain representation.
+- Periodic and non-periodic signals.
+- Signal amplitude and frequency.
+
+### Lesson 2: Sampling theorem
+- Sampling frequency.
+- Sampling interval.
+- Nyquist frequency.
+- Conditions for ideal reconstruction.
+- Practical anti-alias filtering.
+
+### Lesson 3: Aliasing
+- What aliasing means.
+- Why it occurs.
+- Folded frequencies.
+- Real-world consequences.
+- How to reduce aliasing.
+
+### Lesson 4: Fourier analysis
+- Frequency-domain interpretation.
+- DFT and FFT.
+- Frequency resolution.
+- Magnitude spectrum.
+- Windowing and leakage.
+
+### Lesson 5: Signal measurements
+- Mean.
+- RMS.
+- Peak amplitude.
+- Peak-to-peak amplitude.
+- Finite-window energy and average power.
+
+### Lesson 6: Reconstruction
+- Ideal sinc interpolation.
+- Zero-order hold.
+- First-order hold.
+- Practical differences.
+
+Include:
+- Mathematical formulas.
+- Definitions of symbols.
+- Worked numerical examples.
+- Interactive controls connected to the relevant concept.
+- Short knowledge checks with immediate feedback.
+- A resettable guided experiment.
+- References to trustworthy textbooks, university course materials, and relevant technical documentation.
+
+Do not invent academic citations, research papers, experimental results, or standards. Use real references only.
+
+---
+
+# 16. METHODOLOGY AND LITERATURE REVIEW
+
+Include a project methodology section suitable for a B.Tech Signals and Systems presentation.
+
+Describe:
+1. Problem definition.
+2. Project objectives.
+3. System architecture.
+4. Signal generation and acquisition.
+5. Sampling and preprocessing.
+6. DFT/FFT analysis.
+7. Aliasing detection and visualization.
+8. Metrics and result interpretation.
+9. Validation and limitations.
+10. Future development.
+
+Add a literature review table with columns:
+- Topic.
+- Established concept or technique.
+- Relevance to VibeLab.
+- Reference/source.
+- Limitation or consideration.
+
+Cover relevant established areas such as:
+- Sampling theorem and band-limited reconstruction.
+- Discrete Fourier transform.
+- FFT algorithms.
+- Window functions and spectral leakage.
+- Accelerometer-based vibration analysis.
+- Browser sensor APIs and their limitations.
+
+Use verifiable textbooks, original research, university notes, official API documentation, and reputable technical references. Do not invent papers, authors, publication years, or DOI numbers.
+
+---
+
+# 17. UI STATES AND MICROINTERACTIONS
+
+Every important component must have appropriate states.
+
+Buttons:
+- Default.
+- Hover.
+- Focus.
+- Pressed.
+- Disabled.
+- Loading when an actual asynchronous action is in progress.
+
+Application states:
+- Initial empty state.
+- Simulation running.
+- Simulation paused or stopped.
+- Live permission requested.
+- Live sensor connected.
+- Permission denied.
+- Unsupported device.
+- Insufficient samples.
+- Analysis complete.
+- Export unavailable.
+- Saved trial.
+- Storage failure.
+- Recoverable processing error.
+
+Use inline messages and non-blocking notifications where possible.
+
+Use confirmation dialogs for destructive actions.
+
+Never use browser alerts for routine feedback unless necessary as a fallback.
+
+All forms must validate their values and display helpful errors.
+
+Avoid misleading green success messages when an operation has failed.
+
+---
+
+# 18. ACCESSIBILITY AND RESPONSIVENESS
+
+Build mobile-first and test at:
+- 360 px mobile width.
+- 390 px mobile width.
+- Tablet width.
+- 1366 px desktop width.
+- Large desktop width.
+
+Requirements:
+- No horizontal page overflow.
+- Charts must resize correctly.
+- Tables must remain usable on mobile.
+- Controls must have readable labels.
+- Keyboard navigation must work.
+- Focus indicators must be visible.
+- Buttons and touch targets must be comfortably sized.
+- Color must not be the only way to communicate status.
+- Contrast must meet WCAG AA where applicable.
+- Respect reduced-motion preferences.
+- Use semantic HTML and accessible chart descriptions.
+
+The live sensor workflow must be usable on supported mobile browsers.
+
+---
+
+# 19. TECHNICAL ARCHITECTURE
+
+Choose a maintainable implementation suitable for a student project that may be extended later.
+
+Preferred stack:
+- React and TypeScript.
+- A modern build tool such as Vite or the platform's supported equivalent.
+- Tailwind CSS or a consistent modular CSS design system.
+- Lucide icons.
+- A suitable scientific charting library or carefully implemented canvas/SVG charts.
+- A reliable, tested FFT implementation.
+- IndexedDB for optional persistent local experiment storage.
+- Optional Supabase integration only when actually configured.
+
+Use reusable components and separate modules for:
+- Signal generation.
+- Sensor acquisition.
+- Timestamp processing.
+- Resampling.
+- Detrending.
+- FFT/DFT.
+- Frequency calculations.
+- Signal metrics.
+- Aliasing calculations.
+- Reconstruction.
+- Local storage.
+- CSV export.
+- Charts.
+- UI controls.
+
+Use TypeScript types for samples, experiments, configuration, and analysis results.
+
+Avoid unnecessary dependencies.
+
+Do not place the entire application in one giant component.
+
+Do not hardcode simulated metrics into a live sensor dashboard.
+
+Do not add a backend merely to make the project appear more sophisticated.
+
+If the platform cannot support the preferred stack, choose the closest maintainable supported alternative and preserve the same functional requirements.
+
+---
+
+# 20. PERFORMANCE AND DATA INTEGRITY
+
+Implement:
+- Bounded sample buffers.
+- Efficient chart updates.
+- Sensible redraw scheduling.
+- Cleanup of timers and event listeners.
+- Defensive handling of missing or invalid values.
+- Stable time units.
+- Correct sample ordering.
+- Appropriate numerical precision.
+- Graceful handling of long-running captures.
+
+Do not recompute expensive analyses unnecessarily on every UI event if a throttled or scheduled update would be more appropriate.
+
+Never invent missing samples or fabricate sensor timestamps.
+
+Clearly distinguish:
+- Raw measurements.
+- Processed data.
+- Simulated data.
+- Predicted mathematical results.
+- Measured results.
+
+---
+
+# 21. TESTING AND SCIENTIFIC VALIDATION
+
+Before declaring the project complete, test the application.
+
+## Functional tests
+- Every navigation item opens the correct view.
+- Every button performs its stated action.
+- Sliders and inputs update values and calculations.
+- Start and stop controls work.
+- Repeated starts do not create duplicate timers or listeners.
+- CSV files contain valid headers and expected rows.
+- Saved trials persist according to the selected storage strategy.
+- Delete and reset actions work.
+- Theme switching works.
+- Mobile layouts remain usable.
+
+## Scientific tests
+- A 5 Hz sinusoid sampled at 40 Hz should be represented adequately under ideal conditions.
+- A 15 Hz sinusoid sampled at 20 Hz should produce a predicted 5 Hz alias under ideal uniform sampling.
+- The calculated Nyquist frequency must equal half the effective sampling rate.
+- A sine wave's RMS should approach its amplitude divided by √2 when evaluated over a suitable number of complete cycles and without an additional DC component.
+- A zero-mean constant-free test signal must return the expected metrics.
+- FFT peak frequency must agree with the test signal within the limits imposed by frequency resolution and windowing.
+- A low-rate analysis must not silently claim to recover frequency information that was not captured.
+
+Use deterministic test signals for scientific tests rather than random noise.
+
+Add unit tests for key mathematical functions when the environment supports automated testing.
+
+Fix errors discovered during testing.
+
+Do not claim that tests passed unless they were actually run.
+
+---
+
+# 22. DEPLOYMENT AND PROJECT HANDOVER
+
+Make the application runnable using the platform's supported workflow.
+
+Provide:
+- Clear project structure.
+- Setup instructions.
+- Environment variable documentation, if needed.
+- Browser compatibility notes.
+- Sensor permission instructions.
+- Storage explanation.
+- Deployment instructions.
+- Known limitations.
+- Suggested future improvements.
+
+If supported, prepare a deployable public preview using a free hosting option.
+
+Do not require a paid API key for the basic simulator.
+
+Do not require a cloud account for core educational functionality.
+
+Clearly distinguish a local preview from a publicly deployed website.
+
+---
+
+# 23. VISUAL QUALITY REVIEW
+
+Before finishing, review the application as both a senior designer and an engineering lecturer.
+
+Ask:
+- Does the interface feel like a real scientific instrument?
+- Is the main graph the visual priority?
+- Are metric labels and units scientifically correct?
+- Does the 60–30–10 color system remain consistent?
+- Are empty, loading, error, and success states polished?
+- Are there any buttons that do nothing?
+- Are any displayed metrics hardcoded?
+- Does the mobile layout work?
+- Are the graphs understandable without reading a long manual?
+- Is the educational content technically accurate?
+- Is it obvious which data is simulated and which is live?
+- Are scientific limitations communicated honestly?
+
+Fix all obvious issues before presenting the final result.
+
+---
+
+# 24. EXECUTION INSTRUCTIONS
+
+Work in the following order:
+
+Phase 1: Establish the design system, typography, colors, navigation, and responsive application shell.
+
+Phase 2: Build the signal simulator and interactive waveform visualization.
+
+Phase 3: Implement correct sampling, resampling, aliasing calculations, and FFT analysis.
+
+Phase 4: Add live sensor acquisition with permission handling and clear limitations.
+
+Phase 5: Add metrics, Nyquist indicators, comparison charts, and reconstruction methods.
+
+Phase 6: Add experiment history, persistent local storage, and working CSV exports.
+
+Phase 7: Add the learning center, methodology, literature review, and scientific references.
+
+Phase 8: Test every interaction, mathematical function, responsive layout, and error state.
+
+Phase 9: Fix defects, refine visual hierarchy, and prepare deployment instructions.
+
+Do not stop after generating a landing page or a visual prototype.
+
+Do not replace complex required functionality with static placeholders.
+
+If the initial build exceeds the platform's generation budget, complete a coherent, functional minimum version first and then continue in phases without removing the scientific requirements.
+
+At the end, provide:
+1. The working website preview or deployment URL, if actually available.
+2. A concise summary of completed functionality.
+3. A list of tests actually performed and their results.
+4. Any incomplete features or known limitations.
+5. Instructions for running or deploying the project.
+
+**Final acceptance criterion:** VibeLab must be a polished, responsive, interactive Signals & Systems laboratory with working controls, meaningful visualizations, mathematically defensible analysis, clear educational explanations, and honest reporting of its capabilities.
+
+Build the application now.
